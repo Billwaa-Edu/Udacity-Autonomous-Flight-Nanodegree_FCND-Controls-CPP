@@ -95,16 +95,6 @@ VehicleCommand QuadControl::GenerateMotorCommands(float collThrustCmd, V3F momen
     cmd.desiredThrustsN[3] = CONSTRAIN(F3, this->minMotorThrust, this->maxMotorThrust); // rear right
 
 
-
-    //cout << "Fnet: " << collThrustCmd << "\tMx: " << momentCmd.x << "\tMy : " << momentCmd.x << "\tMz : " << momentCmd.z << endl;
-    //cout << "Thrust 1: " << F1 << "\tThrust 2: " << F2 << "\tThrust 3: " << F3 << "\tThrust 4: " << F4 << endl;
-    //cout << "\n\n" << endl;
-
-    //cmd.desiredThrustsN[0] = mass * 9.81f / 4.f; // front left
-    //cmd.desiredThrustsN[1] = mass * 9.81f / 4.f; // front right
-    //cmd.desiredThrustsN[2] = mass * 9.81f / 4.f; // rear left
-    //cmd.desiredThrustsN[3] = mass * 9.81f / 4.f; // rear right
-
     /////////////////////////////// END STUDENT CODE ////////////////////////////
 
     return cmd;
@@ -228,13 +218,6 @@ float QuadControl::AltitudeControl(float posZCmd, float velZCmd, float posZ, flo
     thrust = this->mass * -acceleration_cmd / R(2, 2);
 
 
-    //float u1_bar = R(2, 2) * accelZCmd + 9.81;
-    //float u1 = this->kpPosZ * z_error + this->KiPosZ * this->integratedAltitudeError +  this->kpVelZ * z_vel_error + u1_bar;
-
-    //u1 = CONSTRAIN(u1, -this->maxDescentRate, this->maxAscentRate);
-
-
-    //thrust = this->mass * u1;
     thrust = CONSTRAIN(thrust, this->minMotorThrust * 4.0, this->maxMotorThrust * 4.0);
 
 
@@ -278,9 +261,7 @@ V3F QuadControl::LateralPositionControl(V3F posCmd, V3F velCmd, V3F pos, V3F vel
     ////////////////////////////// BEGIN STUDENT CODE ///////////////////////////
 
     //posCmd.x = 3;
-    //posCmd.y = -1;
-
-    
+    //posCmd.y = -1;    
 
     
     V3F u_vel = this->kpPosXY * (posCmd - pos) + velCmd;
@@ -293,29 +274,6 @@ V3F QuadControl::LateralPositionControl(V3F posCmd, V3F velCmd, V3F pos, V3F vel
     
     accelCmd.x = CONSTRAIN(accelCmd.x, -this->maxAccelXY, this->maxAccelXY);
     accelCmd.y = CONSTRAIN(accelCmd.y, -this->maxAccelXY, this->maxAccelXY);
-
-    //cout << "Vx: " << u_vel.x << "\tVy: " << u_vel.y << "\tAx: " << accelCmd.x << "\tAy: " << accelCmd.y << endl;
-
-
-    //accelCmd.z = 0;
-
-    //accelCmd = u_acc;
-    //cout << pos.x << "\t" << pos.y << "\t" << error_pos.x << "\t" << error_pos.y << endl;
-
-    //accelCmd = this->kpPosXY * error_pos + this->kpVelXY * error_vel + accelCmdFF;
-    //accelCmd.x = CONSTRAIN(accelCmd.x, -this->maxAccelXY, this->maxAccelXY);
-    //accelCmd.y = CONSTRAIN(accelCmd.y, -this->maxAccelXY, this->maxAccelXY);
-    //cout << accelCmd.x << endl;
-
-    //V3F command = this->kpPosXY * error_pos + this->kpVelXY * error_vel + accelCmdFF;
-
-    //accelCmd = command;
-    //accelCmd = V3F(0, 0, 0);
-
-
-
-    //cout << accelCmd.x << "\t" << accelCmd.y << "\t" << accelCmd.z << endl;
-
 
 
 
